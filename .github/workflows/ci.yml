@@ -19,9 +19,11 @@ jobs:
         with:
           python-version: '3.11'
       - run: pip install -r requirements.txt
-      - run: python -m codemaprt.cli --changed-files .codemaprt/changed_files.txt --report reports/index.html
+      - name: Build HTML report
+        run: python -m codemaprt.cli --changed-files .codemaprt/changed_files.txt --report reports/index.html
       - run: pytest -q
-      - uses: actions/upload-artifact@v4
+      - name: Upload report artifact
+        uses: actions/upload-artifact@v4
         with:
           name: codemaprt-report
           path: reports/index.html
@@ -35,8 +37,15 @@ jobs:
         with:
           python-version: '3.11'
       - run: pip install pillow imageio pyyaml
-      - run: python tools/make_full_gifs.py
-      - uses: actions/upload-artifact@v4
+      - name: Download report artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: codemaprt-report
+          path: reports
+      - name: Build GIF/PNG from report
+        run: python tools/make_full_gifs.py
+      - name: Upload GIF/PNG artifacts
+        uses: actions/upload-artifact@v4
         with:
           name: codemaprt-gifs
           path: |
@@ -48,15 +57,22 @@ jobs:
     needs: [select-and-report, build-gifs]
     steps:
       - uses: actions/checkout@v4
-      - name: Build public site
+      - name: Download report artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: codemaprt-report
+          path: public
+      - name: Download gifs artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: codemaprt-gifs
+          path: public/assets
+      - name: Build landing page
         run: |
-          mkdir -p public/assets
-          cp -v reports/index.html public/report.html
-          # минимальный лендинг без heredoc-капкана
+          mv public/index.html public/report.html || true
           echo '<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>CodeMapRT — Demo</title><style>body{font-family:Arial,Helvetica,sans-serif;max-width:1100px;margin:40px auto;padding:0 16px;line-height:1.5}img{max-width:100%;height:auto}</style></head><body><h1>CodeMapRT — Demo</h1><p>This page is published automatically from GitHub Actions. It embeds the scrolling GIF and links to the full HTML report.</p><p><img src="assets/demo.gif" alt="CodeMapRT demo GIF"></p><p><a href="report.html">Open full HTML report</a> • <a href="assets/CodeMapRT_Table_Full_1-33.png">PNG table</a></p></body></html>' > public/index.html
-          cp -v assets/demo.gif public/assets/demo.gif || true
-          cp -v assets/CodeMapRT_Table_Full_1-33.png public/assets/CodeMapRT_Table_Full_1-33.png || true
-      - uses: actions/upload-pages-artifact@v3
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
         with:
           path: public
 
