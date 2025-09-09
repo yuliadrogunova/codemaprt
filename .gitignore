@@ -1,0 +1,35 @@
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Virtual environments
+.env/
+.venv/
+env/
+venv/
+ENV/
+
+# Build / packaging
+*.egg-info/
+dist/
+build/
+
+# Logs / reports
+*.log
+reports/*.html
+reports/*.xml
+reports/*.json
+
+# Local tools cache
+.idea/
+.vscode/
+
+# System files
+.DS_Store
+Thumbs.db
+
+# Artifacts generated in CI
+assets/*.gif
+assets/*.png

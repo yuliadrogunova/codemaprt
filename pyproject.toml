@@ -1,0 +1,11 @@
+
+[project]
+name = "codemaprt"
+version = "1.2.0"
+description = "Prioritized Regression Testing by Code Change Mapping"
+requires-python = ">=3.8"
+dependencies = ["pyyaml","jinja2","flask"]
+
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"

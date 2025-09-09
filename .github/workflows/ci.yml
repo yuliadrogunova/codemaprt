@@ -1,0 +1,106 @@
+name: CodeMapRT CI & Pages
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  select-and-report:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: pip install -r requirements.txt
+      - run: python -m codemaprt.cli --changed-files .codemaprt/changed_files.txt --report reports/index.html
+      - run: pytest -q
+      - uses: actions/upload-artifact@v4
+        with:
+          name: codemaprt-report
+          path: reports/*
+
+  build-gifs:
+    runs-on: ubuntu-latest
+    needs: select-and-report
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: pip install pillow imageio pyyaml
+      - run: python tools/make_full_gifs.py
+      - uses: actions/upload-artifact@v4
+        with:
+          name: codemaprt-gifs
+          path: |
+            assets/*.gif
+            assets/*1-33.png
+
+  build-pages:
+    runs-on: ubuntu-latest
+    needs: [select-and-report, build-gifs]
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build public site
+        run: |
+          mkdir -p public/assets
+          cp -v reports/index.html public/report.html
+          cat > public/index.html << 'HTML'
+          <!doctype html>
+          <html lang="en">
+          <head>
+            <meta charset="utf-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+            <title>CodeMapRT — Demo</title>
+            <style>
+              body{font-family:Arial,Helvetica,sans-serif;max-width:1100px;margin:40px auto;padding:0 16px;line-height:1.5}
+              .hero{display:flex;gap:24px;align-items:center;flex-wrap:wrap}
+              img{max-width:100%;height:auto}
+              .links a{margin-right:14px}
+              code{background:#f2f2f2;padding:2px 6px;border-radius:4px}
+              .muted{color:#555}
+            </style>
+          </head>
+          <body>
+            <h1>CodeMapRT — Demo</h1>
+            <p class="muted">This page is published automatically from GitHub Actions. It embeds the scrolling GIF and links to the full HTML report.</p>
+            <div class="hero">
+              <div style="flex:1 1 380px">
+                <img src="assets/demo.gif" alt="CodeMapRT demo GIF">
+              </div>
+              <div style="flex:1 1 380px">
+                <p><b>Quick links</b></p>
+                <div class="links">
+                  <a href="report.html">Open full HTML report</a> •
+                  <a href="assets/CodeMapRT_Table_Full_1-33.png">PNG table</a>
+                </div>
+                <p><b>Reproduce locally</b></p>
+                <pre><code>pip install -r requirements.txt
+python -m codemaprt.cli --changed-files .codemaprt/changed_files.txt --report reports/index.html
+python tools/make_full_gifs.py</code></pre>
+              </div>
+            </div>
+          </body>
+          </html>
+          HTML
+          cp -v assets/demo.gif public/assets/demo.gif || true
+          cp -v assets/CodeMapRT_Table_Full_1-33.png public/assets/CodeMapRT_Table_Full_1-33.png || true
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: public
+
+  deploy-pages:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build-pages
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

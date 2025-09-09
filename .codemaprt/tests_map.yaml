@@ -1,0 +1,222 @@
+tests:
+  tests/e2e/test_flow_1.py::test_scenario_1:
+    components:
+    - orders
+    - catalog
+    criticality: medium
+    historical_failures: 1
+    type: e2e
+  tests/e2e/test_flow_10.py::test_scenario_10:
+    components:
+    - orders
+    - catalog
+    criticality: medium
+    historical_failures: 1
+    type: e2e
+  tests/e2e/test_flow_11.py::test_scenario_11:
+    components:
+    - orders
+    - catalog
+    criticality: medium
+    historical_failures: 2
+    type: e2e
+  tests/e2e/test_flow_12.py::test_scenario_12:
+    components:
+    - payments
+    - checkout
+    criticality: high
+    historical_failures: 0
+    type: e2e
+  tests/e2e/test_flow_13.py::test_scenario_13:
+    components:
+    - orders
+    - catalog
+    criticality: medium
+    historical_failures: 1
+    type: e2e
+  tests/e2e/test_flow_14.py::test_scenario_14:
+    components:
+    - orders
+    - catalog
+    criticality: medium
+    historical_failures: 2
+    type: e2e
+  tests/e2e/test_flow_15.py::test_scenario_15:
+    components:
+    - payments
+    - checkout
+    criticality: medium
+    historical_failures: 0
+    type: e2e
+  tests/e2e/test_flow_16.py::test_scenario_16:
+    components:
+    - orders
+    - catalog
+    criticality: high
+    historical_failures: 1
+    type: e2e
+  tests/e2e/test_flow_17.py::test_scenario_17:
+    components:
+    - orders
+    - catalog
+    criticality: medium
+    historical_failures: 2
+    type: e2e
+  tests/e2e/test_flow_18.py::test_scenario_18:
+    components:
+    - payments
+    - checkout
+    criticality: medium
+    historical_failures: 0
+    type: e2e
+  tests/e2e/test_flow_19.py::test_scenario_19:
+    components:
+    - orders
+    - catalog
+    criticality: medium
+    historical_failures: 1
+    type: e2e
+  tests/e2e/test_flow_2.py::test_scenario_2:
+    components:
+    - orders
+    - catalog
+    criticality: medium
+    historical_failures: 2
+    type: e2e
+  tests/e2e/test_flow_20.py::test_scenario_20:
+    components:
+    - orders
+    - catalog
+    criticality: high
+    historical_failures: 2
+    type: e2e
+  tests/e2e/test_flow_21.py::test_scenario_21:
+    components:
+    - payments
+    - checkout
+    criticality: medium
+    historical_failures: 0
+    type: e2e
+  tests/e2e/test_flow_22.py::test_scenario_22:
+    components:
+    - orders
+    - catalog
+    criticality: medium
+    historical_failures: 1
+    type: e2e
+  tests/e2e/test_flow_23.py::test_scenario_23:
+    components:
+    - orders
+    - catalog
+    criticality: medium
+    historical_failures: 2
+    type: e2e
+  tests/e2e/test_flow_24.py::test_scenario_24:
+    components:
+    - payments
+    - checkout
+    criticality: high
+    historical_failures: 0
+    type: e2e
+  tests/e2e/test_flow_25.py::test_scenario_25:
+    components:
+    - orders
+    - catalog
+    criticality: medium
+    historical_failures: 1
+    type: e2e
+  tests/e2e/test_flow_26.py::test_scenario_26:
+    components:
+    - orders
+    - catalog
+    criticality: medium
+    historical_failures: 2
+    type: e2e
+  tests/e2e/test_flow_27.py::test_scenario_27:
+    components:
+    - payments
+    - checkout
+    criticality: medium
+    historical_failures: 0
+    type: e2e
+  tests/e2e/test_flow_28.py::test_scenario_28:
+    components:
+    - orders
+    - catalog
+    criticality: high
+    historical_failures: 1
+    type: e2e
+  tests/e2e/test_flow_3.py::test_scenario_3:
+    components:
+    - payments
+    - checkout
+    criticality: medium
+    historical_failures: 0
+    type: e2e
+  tests/e2e/test_flow_4.py::test_scenario_4:
+    components:
+    - orders
+    - catalog
+    criticality: high
+    historical_failures: 1
+    type: e2e
+  tests/e2e/test_flow_5.py::test_scenario_5:
+    components:
+    - orders
+    - catalog
+    criticality: medium
+    historical_failures: 2
+    type: e2e
+  tests/e2e/test_flow_6.py::test_scenario_6:
+    components:
+    - payments
+    - checkout
+    criticality: medium
+    historical_failures: 0
+    type: e2e
+  tests/e2e/test_flow_7.py::test_scenario_7:
+    components:
+    - orders
+    - catalog
+    criticality: medium
+    historical_failures: 1
+    type: e2e
+  tests/e2e/test_flow_8.py::test_scenario_8:
+    components:
+    - orders
+    - catalog
+    criticality: high
+    historical_failures: 2
+    type: e2e
+  tests/e2e/test_flow_9.py::test_scenario_9:
+    components:
+    - payments
+    - checkout
+    criticality: medium
+    historical_failures: 0
+    type: e2e
+  tests/regression/test_safety_1.py::test_safety_1:
+    components: []
+    criticality: low
+    historical_failures: 0
+    type: regression
+  tests/regression/test_safety_2.py::test_safety_2:
+    components: []
+    criticality: low
+    historical_failures: 0
+    type: regression
+  tests/regression/test_safety_3.py::test_safety_3:
+    components: []
+    criticality: low
+    historical_failures: 0
+    type: regression
+  tests/regression/test_safety_4.py::test_safety_4:
+    components: []
+    criticality: low
+    historical_failures: 0
+    type: regression
+  tests/regression/test_safety_5.py::test_safety_5:
+    components: []
+    criticality: low
+    historical_failures: 0
+    type: regression

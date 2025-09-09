@@ -1,0 +1,1 @@
+def send(): return True

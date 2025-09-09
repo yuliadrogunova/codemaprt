@@ -1,0 +1,23 @@
+map:
+  demo_app/*.py:
+  - auth
+  - orders
+  - catalog
+  - payments
+  - profile
+  - inventory
+  - search
+  - promotions
+  - checkout
+  demo_app/services/*.py:
+  - payments
+  - catalog
+  - search
+  - promotions
+  demo_app/ui/*.html:
+  - auth
+  - orders
+  - cart
+  - catalog
+  - profile
+  - checkout
